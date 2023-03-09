@@ -1,0 +1,65 @@
+"""
+ANALISE DE DADOS
+"""
+
+# importa a biblioteca pandas e nomea como pd
+import pandas as pd 
+
+dados = pd.read_excel("Nome do arquivo")
+
+# ANALISES EXPLORATORIAS
+# lista as primeiras linhas
+dados.head() 
+
+# lista as ultimas linhas
+dados.tail()
+
+# estatisticas dados
+dados.describe()
+
+# descreve os totais de cada loja
+dados.loja.values_counts()
+
+# formas de pagamento
+dados.forma_pagamento.values_count()
+
+# dados. "nome da coluna" + values_counts()
+
+# agrupando dados
+
+# ver faturamento de cada loja
+dados.groupby(loja).sum() 
+
+# ver faturamento por cidade
+dados.groupby(cidade).sum() 
+
+# preço medio do produto
+dados.groupby(cidade).mean() 
+
+# agrupar duas ou mais colunas
+dados.groupby(["cidade", "regiao"]).sum() 
+
+
+# GERANDO RELATORIO = CRIA VARIAVEL -> CRIA O CODIGO -> EXPORTA PARA OUTRO FORMATO
+faturamento_cidade_regiao = dados.groupby(["cidade", "regiao"]).sum()
+faturamento_cidade_regiao.to_excel("DÊ UM NOME AO ARQUIVO")
+
+## VISUALIZAÇÃO DE DADOS
+
+# INSTALAR PLOTLY_EXPRESS
+pip install plotly_express
+
+import plotly_express as px
+
+grafico = px.histogram(dados, x="loja",y="preco", text_auto=True, color="estado")
+
+grafico = px.histogram(dados, x="loja",y="preco", text_auto=True, color="estado")
+
+lista_colunas= ["loja", "cidade", "estado", "tamanho", "local_consumo"]
+
+for coluna in lista_colunas:
+  grafico = px.histogram(dados, x=coluna ,y="preco", text_auto=True, color="estado")
+  grafico.show()
+  grafico.write_html(f"Faturamento {coluna}.html")
+
+
