@@ -1,0 +1,20 @@
+# CRIANDO UM CHATBOT ENVIO DE MENSAGEM
+# IMPORTAR BIBLIOTECAS
+import pywhatkit
+import keyboard
+import time
+from datetime import datetime
+
+# definir para quais contatos mandar mensagem
+contatos = ["+5563992914913", "+5563992914913"]
+
+# definir intervalo de tempo entre os envios
+
+while len(contatos) >= 1:
+  # enviar mensagem
+  pywhatkit.sendwhatmsg(contatos[0], "TESTE DE MENSAGEM AUTOMATICA", datetime.now().hour,datetime.now().minute + 2)
+  del contatos[0]
+  time.sleep(60)
+  keyboard.press_and_release("ctrl", "w")
+
+
