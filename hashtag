@@ -1,0 +1,29 @@
+# codigo aula 3
+
+from selenium import webdriver
+import pandas as pd
+
+
+navegador  = webdriver.Chrome()
+
+tabela = pd.read_excel('NOME DO ARQUIVO.xlsx')
+print(tabela)
+
+for linha in tabela.index:
+  produto = tabela.loc[linha, 'Produto']
+  print(produto)
+  produto = produto.replace('ó', 'o').replace('á', 'a').replace('ç', 'c').replace('ú', 'u').replace('ã', 'a').replace('é', 'e')
+  
+  
+  link = f'  {produto}'
+  navegador.get(link)
+  preco = navegador.find_element('xpath', 'elemento').get_attribute('value')
+  preco = preco.replace('.', '')
+  tabela.loc[linha, 'Preço atual'] = float(preco)
+
+    
+print(tabela)
+tabela['Comprar'] = tabela['Preço Atual'] < ['Preço Ideal']
+print(tabela)
+
+tabela.to_excel('nome do novo arquivo.xlsx', index= False)
